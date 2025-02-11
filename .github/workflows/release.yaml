@@ -1,0 +1,32 @@
+name: release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish-pypi:
+    runs-on: ubuntu-latest
+    needs: build-and-release
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.10"
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+
+    - name: Build and Publish to PyPI
+      env:
+        POETRY_HTTP_BASIC_PYPI_USERNAME: __token__
+        POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: |
+        poetry build
+      # Uncomment following line to publish to PyPI
+      # poetry publish
