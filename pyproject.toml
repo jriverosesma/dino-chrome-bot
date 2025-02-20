@@ -1,77 +1,112 @@
-[tool.poetry]
-name = "my-package"
-version = "v0.1.0"
-description = "Simple and effective Python project template"
-authors = ["Juan Rivero Sesma <jriverosesma@gmail.com>"]
+[project]
+name = "dino-chrome-bot"
+version = "0.1.0"
+description = "Bot that plays Chrome's Dinosaur Game"
 readme = "README.md"
-license = "MIT"
-include = ["NOTICES", "LICENSE", "CHANGELOG.md"]
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+keywords = ["dino", "chrome", "bot", "game", "automatic"]
+authors = [
+  { name = "Juan Rivero Sesma", email = "jriverosesma@gmail.com" }
+]
 classifiers = [
-    "Programming Language :: Python :: 3",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development",
+  "Topic :: Games/Entertainment",
+]
+dependencies = [
+  "mss==10.0.0",
+  "numpy==2.2.3",
+  "opencv-python==4.11.0.86",
+  "PyAutoGUI==0.9.54"
+]
+
+[tool.setuptools.packages.find]
+include = ["dino_chrome_bot"]
+
+[tool.setuptools.package-data]
+"dino_chrome_bot" = ["templates/dino_*.png"]
+
+[project.optional-dependencies]
+dev = [
+  "bumpver>=2024.1130,<2025.0",
+  "ruff>=0.9.6,<0.10.0",
+  "pre-commit>=4.1.0,<5.0.0",
+  "pip-licenses>=5.0.0,<6.0.0"
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/jriverosesma/python-project"
-"Issue Tracker" = "https://github.com/jriverosesma/python-project/issues"
+"Homepage" = "https://github.com/jriverosesma/dino-chrome-bot"
+"Issue Tracker" = "https://github.com/jriverosesma/dino-chrome-bot/issues"
 
-[tool.poetry.dependencies]
-python = "^3.10"
+[project.scripts]
+dino_chrome_bot = "dino_chrome_bot.main:main"
 
-# Development
-black = { version = "^23.9.1", optional = true }
-bumpver = { version = "^2023.1126", optional = true }
-isort = { version = "^5.12.0", optional = true }
-flake8 = { version = "^6.1.0", optional = true }
-pre-commit = { version = "^3.4.0", optional = true }
-pip-licenses = { version = "^4.3.2", optional = true }
-
-# Test
-pytest = { version = "^7.4.2", optional = true }
-pytest-mock = { version = "^3.11.1", optional = true }
-pytest-sugar = { version = "^0.9.7", optional = true }
-
-[tool.poetry.extras]
-dev = ["black", "bumpver", "isort", "flake8", "pre-commit", "pip-licenses"]
-test = ["pytest", "pytest-mock", "pytest-sugar"]
-all = ["black", "bumpver", "isort", "flake8", "pre-commit", "pip-licenses", "pytest", "pytest-mock", "pytest-sugar"]
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
-my_package_script = "my_package.main:main"
-
-[tool.black]
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
 line-length = 120
+indent-width = 4
 
-[tool.isort]
-profile = "black"
-line_length = 120
-known_first_party = ["my_package"]
-import_heading_firstparty = "My Package"
+[tool.ruff.lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+# Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
+# McCabe complexity (`C901`) by default.
+# Format imports ("I")
+select = ["E4", "E7", "E9", "F", "I"]
+ignore = []
 
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+# Black-like default formatting.
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
 
 [tool.bumpver]
-current_version = "v0.1.0"
-version_pattern = "vMAJOR.MINOR.PATCH"
-commit          = true
-tag             = true
-push            = true
-commit_message  = "Bump version: {old_version} → {new_version}"
+current_version = "0.1.0"
+version_pattern = "MAJOR.MINOR.PATCH"
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = [
     '^current_version = "{version}"$',
     '^version = "{version}"$',
 ]
-"my_package/__init__.py" = [
+"dino_chrome_bot/__init__.py" = [
     '^__version__ = "{version}"$',
-]
-
-[tool.pytest.ini_options]
-minversion = "7.4"
-markers = [
-    "slow: Slow tests",
-    "failing: Tests which need to be fixed",
 ]

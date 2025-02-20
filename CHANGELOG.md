@@ -1,21 +1,7 @@
 # Changelog
 
-## [x.x.x] - YEAR-MM-DD
+## [0.1.0] - 2025-02-19
 
 ### Added
 
-- To be filled with stuff that was added.
-
-### Changed
-
-- To be filled with stuff that changed.
-
-### Fixed
-
-- To be filled with stuff that was fixed.
-
-## [0.1.0] - 2023-12-07
-
-### Added
-
-- First pre-release.
+- First release.

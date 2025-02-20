@@ -1,48 +1,72 @@
-[![Unit tests](https://github.com/jriverosesma/python-project/actions/workflows/unit_tests.yaml/badge.svg)](https://github.com/jriverosesma/python-project/actions/workflows/unit_tests.yaml)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/jriverosesma/python-project?include_prereleases&label=latest%20release&color=blue)](https://github.com/jriverosesma/python-project/releases)
-[![PyPI version](https://img.shields.io/pypi/v/python-project.svg?color=blue)](https://pypi.org/project/python-project/)
+# Dino Chrome Bot
 
-# Python Project Template
+![gameplay](./assets/gameplay.gif)
 
-*Python Project Template: Simple and effective*
+
+*Bot that plays Chrome's Dinosaur Game*
 ________________________________________________________
 
 ## Table of contents
 1. [Overview](README.md#1-overview)  
-2. [Installation](README.md#2-installation)  
-    2.1 [Users](README.md#2.1-users)  
-    2.2 [Developers](README.md#2.2-developers)  
-3. [Features](README.md#3-features)
+2. [Quickstart](README.md#3-quickstart)  
+    2.1 [Installation](README.md#2.1-installation)  
+    2.2 [Run bot](README.md#2.2-run-bot)  
+3. [How it works](README.md#3-how-it-works)  
+
 
 ## 1. Overview
 
-This is a simple and effective Python project template.
+The internet connection in my train to Paris was so bad that this was born 🦖😎
 
-## 2. Installation
+## 2. Quickstart
 
-### 2.1 Users
+### 2.1 Installation
+
+This program requires `Python >= 3.10`.
+
+For example, using [`conda`](https://docs.anaconda.com/miniconda/install/):
 
 ```bash
-pip install my-package
+conda create -y -n dino-chrome-bot python=3.10 --no-default-packages
+conda activate dino-chrome-bot
+python -m pip install --upgrade pip
 ```
 
-### 2.2 Developers
+Then, from the root of the repository:
+
+**Users**
 
 ```bash
-conda create -y -n my-package python=3.10 --no-default-packages
-conda activate my-package
-python -m pip install --upgrade pip
-pip install -e .[all]
+pip install .
+```
+
+**Developers**
+
+```bash
+pip install -e .[dev]
 pre-commit install
 ```
 
-## 3. Features
+## 2.2 Run bot
 
-- Template `pyproject.toml`.
-- Sample `README.md` with badges and table of contents.
-- Lightweight pre-commits: automatic formatting.
-- Simple and generic unit tests and release workflows.
-- Issue and PR templates.
-- Sample `.gitignore` and `.gitattributes`.
-- Sample `.editorconfig`.
-- Sample `NOTICES` (generated using `pip-licenses`), `LICENSE` and `CHANGELOG.md`.
+**Using command**
+
+```bash
+conda activate dino-chrome-bot
+dino_chrome_bot
+```
+
+**Using script**
+
+```bash
+conda activate dino-chrome-bot
+python dino_chrome_bot/main.py
+```
+
+### 3. How it works
+
+1. Detect dinosaur by template matching.  
+2. We focus on a small frame in front of the dinosaur:  
+2.1. Daytime: Apply pre-defined binary thresholding.  
+2.2. Nighttime: Apply Otsu binary thresholding.  
+3. Bot presses a key if the number of white/black pixels is below/above a certain threshold.
